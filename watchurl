@@ -1,0 +1,4 @@
+# openstack needs version <1.3
+# once they update requirement, we can push >=1.3 versions
+watchurl=https://pypi.python.org/simple/pyScss/ ../../packages/source/p/pyScss/pyScss-(1.2.[\d.]*).tar.gz.*
+
