@@ -4,7 +4,7 @@
 #
 Name     : pyScss
 Version  : 1.3.4
-Release  : 11
+Release  : 12
 URL      : https://pypi.python.org/packages/source/p/pyScss/pyScss-1.3.4.tar.gz
 Source0  : https://pypi.python.org/packages/source/p/pyScss/pyScss-1.3.4.tar.gz
 Summary  : pyScss, a Scss compiler for Python
