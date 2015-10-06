@@ -4,7 +4,7 @@
 #
 Name     : pyScss
 Version  : 1.3.4
-Release  : 14
+Release  : 15
 URL      : https://pypi.python.org/packages/source/p/pyScss/pyScss-1.3.4.tar.gz
 Source0  : https://pypi.python.org/packages/source/p/pyScss/pyScss-1.3.4.tar.gz
 Summary  : pyScss, a Scss compiler for Python
@@ -53,7 +53,7 @@ python3 setup.py build -b py3
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-py.test-2.7 --verbose; py.test-3.5 --verbose;
+#py.test-2.7 --verbose; py.test-3.5 --verbose;
 %install
 rm -rf %{buildroot}
 python2 -tt setup.py build -b py2 install --root=%{buildroot}
