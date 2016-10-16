@@ -1,5 +1,5 @@
 PKG_NAME := pyScss
-URL := https://pypi.python.org/packages/source/p/pyScss/pyScss-1.3.4.tar.gz
+URL := http://pypi.debian.net/pyScss/pyScss-1.3.5.tar.gz
 ARCHIVES :=
 
 include ../common/Makefile.common
