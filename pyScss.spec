@@ -4,7 +4,7 @@
 #
 Name     : pyScss
 Version  : 1.3.5
-Release  : 22
+Release  : 23
 URL      : http://pypi.debian.net/pyScss/pyScss-1.3.5.tar.gz
 Source0  : http://pypi.debian.net/pyScss/pyScss-1.3.5.tar.gz
 Summary  : pyScss, a Scss compiler for Python
