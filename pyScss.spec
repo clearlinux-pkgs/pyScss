@@ -4,7 +4,7 @@
 #
 Name     : pyScss
 Version  : 1.3.5
-Release  : 23
+Release  : 24
 URL      : http://pypi.debian.net/pyScss/pyScss-1.3.5.tar.gz
 Source0  : http://pypi.debian.net/pyScss/pyScss-1.3.5.tar.gz
 Summary  : pyScss, a Scss compiler for Python
@@ -47,6 +47,7 @@ python components for the pyScss package.
 
 %build
 export LANG=C
+export SOURCE_DATE_EPOCH=1484565908
 python2 setup.py build -b py2
 python3 setup.py build -b py3
 
@@ -56,9 +57,10 @@ export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 py.test-2.7 --verbose || : ; py.test-3.5 --verbose || : ;
 %install
+export SOURCE_DATE_EPOCH=1484565908
 rm -rf %{buildroot}
-python2 -tt setup.py build -b py2 install --root=%{buildroot}
-python3 -tt setup.py build -b py3 install --root=%{buildroot}
+python2 -tt setup.py build -b py2 install --root=%{buildroot} --force
+python3 -tt setup.py build -b py3 install --root=%{buildroot} --force
 
 %files
 %defattr(-,root,root,-)
