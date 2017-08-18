@@ -4,7 +4,7 @@
 #
 Name     : pyScss
 Version  : 1.3.5
-Release  : 25
+Release  : 26
 URL      : http://pypi.debian.net/pyScss/pyScss-1.3.5.tar.gz
 Source0  : http://pypi.debian.net/pyScss/pyScss-1.3.5.tar.gz
 Summary  : pyScss, a Scss compiler for Python
@@ -12,6 +12,7 @@ Group    : Development/Tools
 License  : MIT
 Requires: pyScss-bin
 Requires: pyScss-python
+Requires: six
 BuildRequires : pbr
 BuildRequires : pcre-dev
 BuildRequires : pip
@@ -21,9 +22,9 @@ BuildRequires : setuptools
 BuildRequires : six
 
 %description
-pyScss, a Scss compiler for Python
 ==================================
-|build-status| |coverage|
+        
+        |build-status| |coverage|
 
 %package bin
 Summary: bin components for the pyScss package.
@@ -46,8 +47,11 @@ python components for the pyScss package.
 %setup -q -n pyScss-1.3.5
 
 %build
+export http_proxy=http://127.0.0.1:9/
+export https_proxy=http://127.0.0.1:9/
+export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1484565908
+export SOURCE_DATE_EPOCH=1503075297
 python2 setup.py build -b py2
 python3 setup.py build -b py3
 
@@ -57,10 +61,13 @@ export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 py.test-2.7 --verbose || : ; py.test-3.5 --verbose || : ;
 %install
-export SOURCE_DATE_EPOCH=1484565908
+export SOURCE_DATE_EPOCH=1503075297
 rm -rf %{buildroot}
 python2 -tt setup.py build -b py2 install --root=%{buildroot} --force
 python3 -tt setup.py build -b py3 install --root=%{buildroot} --force
+echo ----[ mark ]----
+cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
+echo ----[ mark ]----
 
 %files
 %defattr(-,root,root,-)
@@ -72,4 +79,5 @@ python3 -tt setup.py build -b py3 install --root=%{buildroot} --force
 
 %files python
 %defattr(-,root,root,-)
-/usr/lib/python*/*
+/usr/lib/python2*/*
+/usr/lib/python3*/*
