@@ -1,4 +1,0 @@
-# openstack Liberty needs version >= 1.3.4
-# for more information check https://github.com/openstack/requirements/blob/master/global-requirements.txt
-watchurl=https://pypi.python.org/simple/pyScss/ ../../packages/source/p/pyScss/pyScss-([\d.]*).tar.gz.*
-
