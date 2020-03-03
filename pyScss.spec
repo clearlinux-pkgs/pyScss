@@ -4,34 +4,92 @@
 #
 Name     : pyScss
 Version  : 1.3.5
-Release  : 35
+Release  : 36
 URL      : http://pypi.debian.net/pyScss/pyScss-1.3.5.tar.gz
 Source0  : http://pypi.debian.net/pyScss/pyScss-1.3.5.tar.gz
 Summary  : pyScss, a Scss compiler for Python
 Group    : Development/Tools
 License  : MIT
-Requires: pyScss-bin
-Requires: pyScss-python3
-Requires: pyScss-license
-Requires: pyScss-python
+Requires: pyScss-bin = %{version}-%{release}
+Requires: pyScss-license = %{version}-%{release}
+Requires: pyScss-python = %{version}-%{release}
+Requires: pyScss-python3 = %{version}-%{release}
 Requires: six
 BuildRequires : buildreq-distutils3
-BuildRequires : pbr
 BuildRequires : pcre-dev
-BuildRequires : pip
 BuildRequires : python3-dev
-BuildRequires : setuptools
 BuildRequires : six
 
 %description
+pyScss, a Scss compiler for Python
 ==================================
-        
-        |build-status| |coverage|
+
+|build-status| |coverage|
+
+.. |build-status| image:: https://travis-ci.org/Kronuz/pyScss.svg?branch=master
+    :target: https://travis-ci.org/Kronuz/pyScss
+
+.. |coverage| image:: https://coveralls.io/repos/Kronuz/pyScss/badge.png
+    :target: https://coveralls.io/r/Kronuz/pyScss
+
+pyScss is a compiler for the `Sass`_ language, a superset of CSS3 that adds
+programming capabilities and some other syntactic sugar.
+
+.. _Sass: http://sass-lang.com/
+
+Quickstart
+----------
+
+You need Python 2.6+ or 3.2+.  PyPy is also supported.
+
+Installation::
+
+    pip install pyScss
+
+Usage::
+
+    python -mscss < style.scss
+
+Python API::
+
+    from scss import Compiler
+    Compiler().compile_string("a { color: red + green; }")
+
+
+Features
+--------
+
+95% of Sass 3.2 is supported.  If it's not supported, it's a bug!  Please file
+a ticket.
+
+Most of Compass 0.11 is also built in.
+
+
+Further reading
+---------------
+
+Documentation is in Sphinx.  You can build it yourself by running ``make html``
+from within the ``docs`` directory, or read it on RTD:
+http://pyscss.readthedocs.org/en/latest/
+
+The canonical syntax reference is part of the Ruby Sass documentation:
+http://sass-lang.com/docs/yardoc/file.SASS_REFERENCE.html
+
+
+Obligatory
+----------
+
+Copyright © 2012 German M. Bravo (Kronuz).  Additional credits in the
+documentation.
+
+Licensed under the `MIT license`_, reproduced in ``LICENSE``.
+
+.. _MIT license: http://www.opensource.org/licenses/mit-license.php
 
 %package bin
 Summary: bin components for the pyScss package.
 Group: Binaries
-Requires: pyScss-license
+Requires: pyScss-license = %{version}-%{release}
 
 %description bin
 bin components for the pyScss package.
@@ -48,7 +106,7 @@ license components for the pyScss package.
 %package python
 Summary: python components for the pyScss package.
 Group: Default
-Requires: pyScss-python3
+Requires: pyScss-python3 = %{version}-%{release}
 Provides: pyscss-python
 
 %description python
@@ -59,6 +117,7 @@ python components for the pyScss package.
 Summary: python3 components for the pyScss package.
 Group: Default
 Requires: python3-core
+Provides: pypi(pyScss)
 
 %description python3
 python3 components for the pyScss package.
@@ -66,14 +125,22 @@ python3 components for the pyScss package.
 
 %prep
 %setup -q -n pyScss-1.3.5
+cd %{_builddir}/pyScss-1.3.5
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1532526892
-python3 setup.py build -b py3
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1583209542
+# -Werror is for werrorists
+export GCC_IGNORE_WERROR=1
+export CFLAGS="$CFLAGS -fno-lto "
+export FCFLAGS="$CFLAGS -fno-lto "
+export FFLAGS="$CFLAGS -fno-lto "
+export CXXFLAGS="$CXXFLAGS -fno-lto "
+export MAKEFLAGS=%{?_smp_mflags}
+python3 setup.py build
 
 %check
 export http_proxy=http://127.0.0.1:9/
@@ -81,10 +148,11 @@ export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 py.test-2.7 --verbose || : ; py.test-3.5 --verbose || : ;
 %install
+export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/usr/share/doc/pyScss
-cp LICENSE %{buildroot}/usr/share/doc/pyScss/LICENSE
-python3 -tt setup.py build -b py3 install --root=%{buildroot}
+mkdir -p %{buildroot}/usr/share/package-licenses/pyScss
+cp %{_builddir}/pyScss-1.3.5/LICENSE %{buildroot}/usr/share/package-licenses/pyScss/c313f5aad9597bd831180c4a772e4c292248b00d
+python3 -tt setup.py build  install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
 echo ----[ mark ]----
@@ -98,8 +166,8 @@ echo ----[ mark ]----
 /usr/bin/pyscss
 
 %files license
-%defattr(-,root,root,-)
-/usr/share/doc/pyScss/LICENSE
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/pyScss/c313f5aad9597bd831180c4a772e4c292248b00d
 
 %files python
 %defattr(-,root,root,-)
