@@ -4,7 +4,7 @@
 #
 Name     : pyScss
 Version  : 1.3.5
-Release  : 36
+Release  : 37
 URL      : http://pypi.debian.net/pyScss/pyScss-1.3.5.tar.gz
 Source0  : http://pypi.debian.net/pyScss/pyScss-1.3.5.tar.gz
 Summary  : pyScss, a Scss compiler for Python
@@ -21,70 +21,9 @@ BuildRequires : python3-dev
 BuildRequires : six
 
 %description
-pyScss, a Scss compiler for Python
 ==================================
-
-|build-status| |coverage|
-
-.. |build-status| image:: https://travis-ci.org/Kronuz/pyScss.svg?branch=master
-    :target: https://travis-ci.org/Kronuz/pyScss
-
-.. |coverage| image:: https://coveralls.io/repos/Kronuz/pyScss/badge.png
-    :target: https://coveralls.io/r/Kronuz/pyScss
-
-pyScss is a compiler for the `Sass`_ language, a superset of CSS3 that adds
-programming capabilities and some other syntactic sugar.
-
-.. _Sass: http://sass-lang.com/
-
-Quickstart
-----------
-
-You need Python 2.6+ or 3.2+.  PyPy is also supported.
-
-Installation::
-
-    pip install pyScss
-
-Usage::
-
-    python -mscss < style.scss
-
-Python API::
-
-    from scss import Compiler
-    Compiler().compile_string("a { color: red + green; }")
-
-
-Features
---------
-
-95% of Sass 3.2 is supported.  If it's not supported, it's a bug!  Please file
-a ticket.
-
-Most of Compass 0.11 is also built in.
-
-
-Further reading
----------------
-
-Documentation is in Sphinx.  You can build it yourself by running ``make html``
-from within the ``docs`` directory, or read it on RTD:
-http://pyscss.readthedocs.org/en/latest/
-
-The canonical syntax reference is part of the Ruby Sass documentation:
-http://sass-lang.com/docs/yardoc/file.SASS_REFERENCE.html
-
-
-Obligatory
-----------
-
-Copyright © 2012 German M. Bravo (Kronuz).  Additional credits in the
-documentation.
-
-Licensed under the `MIT license`_, reproduced in ``LICENSE``.
-
-.. _MIT license: http://www.opensource.org/licenses/mit-license.php
+        
+        |build-status| |coverage|
 
 %package bin
 Summary: bin components for the pyScss package.
@@ -117,7 +56,8 @@ python components for the pyScss package.
 Summary: python3 components for the pyScss package.
 Group: Default
 Requires: python3-core
-Provides: pypi(pyScss)
+Provides: pypi(pyscss)
+Requires: pypi(six)
 
 %description python3
 python3 components for the pyScss package.
@@ -132,8 +72,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1583209542
-# -Werror is for werrorists
+export SOURCE_DATE_EPOCH=1583521492
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
 export FCFLAGS="$CFLAGS -fno-lto "
