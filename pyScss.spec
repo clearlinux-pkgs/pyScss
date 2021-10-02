@@ -4,7 +4,7 @@
 #
 Name     : pyScss
 Version  : 1.3.7
-Release  : 48
+Release  : 49
 URL      : https://files.pythonhosted.org/packages/e6/0d/6b52a5211121b870cc0c4c908b689fd460630b01a9e501a534db78e67bad/pyScss-1.3.7.tar.gz
 Source0  : https://files.pythonhosted.org/packages/e6/0d/6b52a5211121b870cc0c4c908b689fd460630b01a9e501a534db78e67bad/pyScss-1.3.7.tar.gz
 Summary  : pyScss, a Scss compiler for Python
@@ -17,6 +17,7 @@ Requires: pyScss-python3 = %{version}-%{release}
 Requires: six
 BuildRequires : buildreq-distutils3
 BuildRequires : pcre-dev
+BuildRequires : pytest
 BuildRequires : python3-dev
 BuildRequires : six
 
@@ -72,7 +73,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1587403810
+export SOURCE_DATE_EPOCH=1633196803
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
 export FCFLAGS="$FFLAGS -fno-lto "
@@ -85,7 +86,7 @@ python3 setup.py build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-py.test-2.7 --verbose || : ; py.test-3.5 --verbose || : ;
+pytest --verbose || :
 %install
 export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
